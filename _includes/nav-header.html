@@ -1,0 +1,92 @@
+<style>
+
+  .underline-with-animation {
+    display: inline-block;
+    position: relative;
+}
+
+.underline-with-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    transform-origin: left right;
+    transition: transform 0.20s ease-out;
+}
+
+.underline-with-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: left right;
+}
+a{
+  text-decoration: none !important;
+  color: white;
+}
+.undl-themecolor {
+    display: inline-block;
+    position: relative;
+}
+
+.undl-themecolor::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f97316;
+    transform-origin: left right;
+    transition: transform 0.20s ease-out;
+}
+
+.undl-themecolor:hover::after {
+    transform: scaleX(1);
+    transform-origin: left right;
+}
+   
+    @media screen and (max-width: 480px) {
+ 
+  .list{
+    display: flex;
+    flex-direction: row;
+    margin-left: 0px;
+  }
+
+}
+  @media screen and (min-width: 500px ) {
+    .list{
+    margin-left: 380px;
+  }
+  
+ 
+}
+  
+</style>
+{% if site.navigation_header %}
+<nav  class="nav  nav--header">
+  <ul  class="list  list--nav">
+    {% for item in site.navigation_header %}
+
+      {% if item.url contains '://' %}
+        {% assign url = item.url %}
+      {% else %}
+        {% assign url = item.url | relative_url %}
+      {% endif %}
+
+      <li class=" underline-with-animation item  item--nav{% if item.url == page.url %}  item--current{% endif %}">
+        <a href="{{ url }}">{{ item.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+ 
+</nav>
+{% else %}
+  {% include nav-default.html %}
+{% endif %}
